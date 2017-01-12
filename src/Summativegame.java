@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
@@ -31,9 +32,14 @@ public class Summativegame extends JComponent{
     {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
-        
-        // GAME DRAWING GOES HERE 
-        
+        // set a colour for the background
+        g.setColor(Color.BLACK);
+        // draw the background of the game and leave a gap for the floor
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+        // set a colour for the floor
+        g.setColor(Color.BLUE);
+        // draw the flooe
+        g.fillRect(0, 572, WIDTH, 28);
         
         // GAME DRAWING ENDS HERE
     }
