@@ -38,8 +38,15 @@ public class Summativegame extends JComponent{
         g.fillRect(0, 0, WIDTH, HEIGHT);
         // set a colour for the floor
         g.setColor(Color.BLUE);
-        // draw the flooe
+        // draw the floor
         g.fillRect(0, 572, WIDTH, 28);
+        // set the colour of the cannon'
+        g.setColor(Color.red);
+        // create a cannon barrel
+        g.fillRect(28, 552, 50, 20);
+        // set the colour of the wheel of the cannon
+        g.setColor(Color.GREEN);
+        // create the wheel of the barrel
         
         // GAME DRAWING ENDS HERE
     }
