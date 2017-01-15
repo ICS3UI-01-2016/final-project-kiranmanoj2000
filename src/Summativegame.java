@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -30,6 +33,8 @@ public class Summativegame extends JComponent implements KeyListener {
     int downSpeed = 15;
     // create boolean to see if game starts
     boolean begin = false;
+    // import picture
+    BufferedImage cannon = loadImage("cannon.png");
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -49,15 +54,28 @@ public class Summativegame extends JComponent implements KeyListener {
         // set the colour of the cannon'
         g.setColor(Color.red);
         // create a cannon barrel
-        g.fillRect(6, 542, 75, 30);
+        
         // set the colour of the wheel of the cannon
         g.setColor(Color.GREEN);
-        // create the wheel of the barrel
-        g.fillArc(10, 522, 50, 50, 360, 360);
+        
+        
+        // draw in the cannon
+        g.drawImage(cannon, 6, 542, 75, 30, null);
 
         // GAME DRAWING ENDS HERE
     }
 
+    public BufferedImage loadImage(String filename){
+        BufferedImage img = null;
+        try{
+            File file = new File(filename);
+            img = ImageIO.read(file);
+        }catch(Exception e){
+            // if there is an error, print it
+            e.printStackTrace();
+        }
+        return img;
+    }
     // The main game loop
     // In here is where all the logic for my game will go
     public void run() {
