@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -34,7 +35,12 @@ public class Summativegame extends JComponent implements KeyListener {
     // create boolean to see if game starts
     boolean begin = false;
     // import picture
-    BufferedImage cannon = loadImage("cannon.png");
+    BufferedImage cannonimg = loadImage("cannon.png");
+    boolean start = false;
+    Rectangle cannon = new Rectangle (6, 542, 100, 76);
+    // set a variable to say the distance from y
+    int distanceY = 0;
+    int moveSpeed = 1;
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -60,8 +66,9 @@ public class Summativegame extends JComponent implements KeyListener {
         
         
         // draw in the cannon
-        g.drawImage(cannon, 6, 542, 75, 30, null);
-
+        g.drawImage(cannonimg, cannon.x, cannon.y, cannon.width, cannon.height, null);
+        
+           
         // GAME DRAWING ENDS HERE
     }
 
@@ -93,7 +100,12 @@ public class Summativegame extends JComponent implements KeyListener {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
-            if (moveUp || moveDown) {
+            if (begin = true  ) {
+                if(moveUp = true){
+                    
+                    distanceY = cannon.y-cannon.height;
+                    cannon.y = distanceY-moveSpeed;
+                }
                 
             }
 
@@ -153,11 +165,11 @@ public class Summativegame extends JComponent implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_DOWN) {
+        while (key == KeyEvent.VK_DOWN) {
             begin = true;
             moveDown = true;
         }
-        if (key == KeyEvent.VK_UP){
+        while (key == KeyEvent.VK_UP){
         moveUp = true;
         begin = true;
     }
@@ -166,5 +178,12 @@ public class Summativegame extends JComponent implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
+        if (key == KeyEvent.VK_DOWN) {
+            moveDown = false;
+    }
+        if (key == KeyEvent.VK_UP){
+        moveUp = false;
+        
+}
     }
 }
