@@ -37,10 +37,10 @@ public class Summativegame extends JComponent implements KeyListener {
     // import picture
     BufferedImage cannonimg = loadImage("cannon.png");
     boolean start = false;
-    Rectangle cannon = new Rectangle (6, 542, 100, 76);
+    Rectangle cannon = new Rectangle(6, 542, 100, 76);
     // set a variable to say the distance from y
     int distanceY = 0;
-    int moveSpeed = 1;
+    int moveSpeed = 19;
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -60,24 +60,24 @@ public class Summativegame extends JComponent implements KeyListener {
         // set the colour of the cannon'
         g.setColor(Color.red);
         // create a cannon barrel
-        
+
         // set the colour of the wheel of the cannon
         g.setColor(Color.GREEN);
-        
-        
+
+
         // draw in the cannon
         g.drawImage(cannonimg, cannon.x, cannon.y, cannon.width, cannon.height, null);
-        
-           
+
+
         // GAME DRAWING ENDS HERE
     }
 
-    public BufferedImage loadImage(String filename){
+    public BufferedImage loadImage(String filename) {
         BufferedImage img = null;
-        try{
+        try {
             File file = new File(filename);
             img = ImageIO.read(file);
-        }catch(Exception e){
+        } catch (Exception e) {
             // if there is an error, print it
             e.printStackTrace();
         }
@@ -85,6 +85,7 @@ public class Summativegame extends JComponent implements KeyListener {
     }
     // The main game loop
     // In here is where all the logic for my game will go
+
     public void run() {
         // Used to keep track of time used to draw and update the game
         // This is used to limit the framerate later on
@@ -100,13 +101,22 @@ public class Summativegame extends JComponent implements KeyListener {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
-            if (begin = true  ) {
-                if(moveUp = true){
-                    
-                    distanceY = cannon.y-cannon.height;
-                    cannon.y = distanceY-moveSpeed;
-                }
+
+
+
+
+            if (start) {
+                if (moveUp) {
+
                 
+                    cannon.y = cannon.y - moveSpeed;
+                  
+                }
+
+                if (moveDown)  {
+                    cannon.y = cannon.y + moveSpeed;
+                }
+                // set barriers
             }
 
 
@@ -146,6 +156,7 @@ public class Summativegame extends JComponent implements KeyListener {
         game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         // adds the game to the window
         frame.add(game);
+        frame.addKeyListener(game);
 
         // sets some options and size of the window automatically
         frame.setResizable(false);
@@ -165,14 +176,14 @@ public class Summativegame extends JComponent implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        while (key == KeyEvent.VK_DOWN) {
-            begin = true;
+        if (key == KeyEvent.VK_DOWN) {
+            start = true;
             moveDown = true;
         }
-        while (key == KeyEvent.VK_UP){
-        moveUp = true;
-        begin = true;
-    }
+        if (key == KeyEvent.VK_UP) {
+            moveUp = true;
+            start = true;
+        }
     }
 
     @Override
@@ -180,10 +191,9 @@ public class Summativegame extends JComponent implements KeyListener {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_DOWN) {
             moveDown = false;
-    }
-        if (key == KeyEvent.VK_UP){
-        moveUp = false;
-        
-}
+        }
+        if (key == KeyEvent.VK_UP) {
+            moveUp = false;
+        }
     }
 }
