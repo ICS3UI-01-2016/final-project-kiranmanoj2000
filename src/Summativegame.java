@@ -40,7 +40,9 @@ public class Summativegame extends JComponent implements KeyListener {
     Rectangle cannon = new Rectangle(6, 542, 100, 76);
     // set a variable to say the distance from y
     int distanceY = 0;
-    int moveSpeed = 19;
+    int moveSpeed = 10;
+    // create a boolean for the shooting of the cannon
+    boolean shoot = false;
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -67,6 +69,11 @@ public class Summativegame extends JComponent implements KeyListener {
 
         // draw in the cannon
         g.drawImage(cannonimg, cannon.x, cannon.y, cannon.width, cannon.height, null);
+        
+        // draw the cannon ball if the spacebar is pressed
+        if(shoot){
+            g.fillArc(76, cannon.y - 80, 15, 360, 360, ABORT);
+        }
 
 
         // GAME DRAWING ENDS HERE
@@ -117,8 +124,8 @@ public class Summativegame extends JComponent implements KeyListener {
                     cannon.y = cannon.y + moveSpeed;
                 }
                 // set barriers
-                if (cannon.y > 600){
-                    cannon.y = 600;
+                if (cannon.y > 532){
+                    cannon.y = 530;
                 }
                 if (cannon.y < 0){
                     cannon.y =0;
@@ -190,6 +197,9 @@ public class Summativegame extends JComponent implements KeyListener {
             moveUp = true;
             start = true;
         }
+        if (key == KeyEvent.VK_SPACE){
+            shoot = true;
+        }
     }
 
     @Override
@@ -201,5 +211,9 @@ public class Summativegame extends JComponent implements KeyListener {
         if (key == KeyEvent.VK_UP) {
             moveUp = false;
         }
+        if (key == KeyEvent.VK_SPACE){
+            shoot = false;
+        }
+        
     }
 }
