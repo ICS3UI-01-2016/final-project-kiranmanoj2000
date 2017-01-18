@@ -117,6 +117,12 @@ public class Summativegame extends JComponent implements KeyListener {
                     cannon.y = cannon.y + moveSpeed;
                 }
                 // set barriers
+                if (cannon.y > 600){
+                    cannon.y = 600;
+                }
+                if (cannon.y < 0){
+                    cannon.y =0;
+                }
             }
 
 
