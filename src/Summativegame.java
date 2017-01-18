@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -36,6 +37,8 @@ public class Summativegame extends JComponent implements KeyListener {
     boolean begin = false;
     // import picture
     BufferedImage cannonimg = loadImage("cannon.png");
+    // import a picture for the cannon ball
+    BufferedImage cannonBall = loadImage("Cannonball.png");
     boolean start = false;
     Rectangle cannon = new Rectangle(6, 542, 100, 76);
     // set a variable to say the distance from y
@@ -43,6 +46,10 @@ public class Summativegame extends JComponent implements KeyListener {
     int moveSpeed = 10;
     // create a boolean for the shooting of the cannon
     boolean shoot = false;
+    // add a colour for the background
+    Color gold = new Color (242,242,12);
+    // make a elipse for thbae cannonball
+    Ellipse2D ball = new Ellipse2D(10, cannon.y-10, 20,20);
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -52,13 +59,13 @@ public class Summativegame extends JComponent implements KeyListener {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
         // set a colour for the background
-        g.setColor(Color.BLACK);
+        g.setColor(gold);
         // draw the background of the game and leave a gap for the floor
         g.fillRect(0, 0, WIDTH, HEIGHT);
         // set a colour for the floor
         g.setColor(Color.BLUE);
         // draw the floor
-        g.fillRect(0, 572, WIDTH, 28);
+        g.fillRect(0, 563, WIDTH, 38);
         // set the colour of the cannon'
         g.setColor(Color.red);
         // create a cannon barrel
@@ -71,8 +78,11 @@ public class Summativegame extends JComponent implements KeyListener {
         g.drawImage(cannonimg, cannon.x, cannon.y, cannon.width, cannon.height, null);
         
         // draw the cannon ball if the spacebar is pressed
-        if(shoot){
-            g.fillArc(76, cannon.y - 80, 15, 360, 360, ABORT);
+        if(shoot){ 
+            
+            g.fillArc(107, cannon.y-3, 30, 30, 360, 360);
+            g.drawImage(Cannonball, ERROR, ERROR, ERROR, ERROR, this)
+            
         }
 
 
@@ -128,7 +138,7 @@ public class Summativegame extends JComponent implements KeyListener {
                     cannon.y = 530;
                 }
                 if (cannon.y < 0){
-                    cannon.y =0;
+                    cannon.y =4;
                 }
             }
 
@@ -211,9 +221,7 @@ public class Summativegame extends JComponent implements KeyListener {
         if (key == KeyEvent.VK_UP) {
             moveUp = false;
         }
-        if (key == KeyEvent.VK_SPACE){
-            shoot = false;
-        }
+        
         
     }
 }
