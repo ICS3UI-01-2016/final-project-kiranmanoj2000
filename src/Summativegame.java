@@ -39,6 +39,8 @@ public class Summativegame extends JComponent implements KeyListener {
     BufferedImage cannonimg = loadImage("cannon.png");
     // import a picture for the cannon ball
     BufferedImage cannonBall = loadImage("Cannonball.png");
+    // import a picture for the wall'
+    BufferedImage targetBackground = loadImage("targetBackground.png");
     boolean start = false;
     Rectangle cannon = new Rectangle(6, 542, 100, 76);
     // set a variable to say the distance from y
@@ -54,8 +56,7 @@ public class Summativegame extends JComponent implements KeyListener {
     int ballSpeed = 10;
     // set a variable for the cannon y position
     int cannonYPosition = cannon.y;
-    // make a rectangle for the moving target wall
-    Rectangle target
+    
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -82,7 +83,8 @@ public class Summativegame extends JComponent implements KeyListener {
 
         // draw in the cannon
         g.drawImage(cannonimg, cannon.x, cannon.y, cannon.width, cannon.height, null);
-
+        
+        
         // draw the cannon ball if the spacebar is pressed
         if (shoot) {
 
@@ -92,7 +94,9 @@ public class Summativegame extends JComponent implements KeyListener {
         if(ball.x >=750){
             ball.x = 750;
         }
-
+// draw in the target background
+        g.drawImage(targetBackground, 757, 550,100, 550, null);
+        
         // GAME DRAWING ENDS HERE
     }
 
@@ -212,6 +216,7 @@ public class Summativegame extends JComponent implements KeyListener {
         }
         if (key == KeyEvent.VK_SPACE) {
             shoot = true;
+            
         }
     }
 
@@ -224,9 +229,7 @@ public class Summativegame extends JComponent implements KeyListener {
         if (key == KeyEvent.VK_UP) {
             moveUp = false;
         }
-        if (key == KeyEvent.VK_SPACE) {
-            shoot = true;
-        }
+        
 
     }
 }
