@@ -47,13 +47,20 @@ public class Summativegame extends JComponent implements KeyListener {
     // create a boolean for the shooting of the cannon
     boolean shoot = false;
     // add a colour for the background
-    Color gold = new Color (242,242,12);
+    Color gold = new Color(242, 242, 12);
     // make a elipse for thbae cannonball
-    Ellipse2D ball = new Ellipse2D(10, cannon.y-10, 20,20);
+    Rectangle ball = new Rectangle(107, cannon.y - 3, 30, 30);
+    // set ball speed
+    int ballSpeed = 10;
+    // set a variable for the cannon y position
+    int cannonYPosition = cannon.y;
+    // make a rectangle for the moving target wall
+    Rectangle target
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
     // NOTE: This is already double buffered!(helps with framerate/speed)
+
     @Override
     public void paintComponent(Graphics g) {
         // always clear the screen first!
@@ -73,18 +80,18 @@ public class Summativegame extends JComponent implements KeyListener {
         // set the colour of the wheel of the cannon
         g.setColor(Color.GREEN);
 
-
         // draw in the cannon
         g.drawImage(cannonimg, cannon.x, cannon.y, cannon.width, cannon.height, null);
-        
-        // draw the cannon ball if the spacebar is pressed
-        if(shoot){ 
-            
-            g.fillArc(107, cannon.y-3, 30, 30, 360, 360);
-            g.drawImage(Cannonball, ERROR, ERROR, ERROR, ERROR, this)
-            
-        }
 
+        // draw the cannon ball if the spacebar is pressed
+        if (shoot) {
+
+            g.drawImage(cannonBall, ball.x, cannon.y, ball.width, ball.height, null);
+
+        }
+        if(ball.x >=750){
+            ball.x = 750;
+        }
 
         // GAME DRAWING ENDS HERE
     }
@@ -118,37 +125,33 @@ public class Summativegame extends JComponent implements KeyListener {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
-
-
-
-
             if (start) {
                 if (moveUp) {
 
-                
                     cannon.y = cannon.y - moveSpeed;
-                  
+
                 }
 
-                if (moveDown)  {
+                if (moveDown) {
                     cannon.y = cannon.y + moveSpeed;
                 }
                 // set barriers
-                if (cannon.y > 532){
+                if (cannon.y > 532) {
                     cannon.y = 530;
                 }
-                if (cannon.y < 0){
-                    cannon.y =4;
+                if (cannon.y < 0) {
+                    cannon.y = 4;
                 }
             }
-
+            // make cannon ball move
+            if (shoot) {
+                ball.y = cannonYPosition;
+                ball.x = ball.x + ballSpeed;
+            }
 
             // GAME LOGIC ENDS HERE 
-
             // update the drawing (calls paintComponent)
             repaint();
-
-
 
             // SLOWS DOWN THE GAME BASED ON THE FRAMERATE ABOVE
             // USING SOME SIMPLE MATH
@@ -207,7 +210,7 @@ public class Summativegame extends JComponent implements KeyListener {
             moveUp = true;
             start = true;
         }
-        if (key == KeyEvent.VK_SPACE){
+        if (key == KeyEvent.VK_SPACE) {
             shoot = true;
         }
     }
@@ -221,7 +224,9 @@ public class Summativegame extends JComponent implements KeyListener {
         if (key == KeyEvent.VK_UP) {
             moveUp = false;
         }
-        
-        
+        if (key == KeyEvent.VK_SPACE) {
+            shoot = true;
+        }
+
     }
 }
