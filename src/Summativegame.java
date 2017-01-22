@@ -56,6 +56,8 @@ public class Summativegame extends JComponent implements KeyListener {
     int ballSpeed = 10;
     // set a variable for the cannon y position
     int cannonYPosition = cannon.y;
+    //
+    boolean reshoot = false;
     
 
     // drawing of the game happens in here
@@ -88,18 +90,24 @@ public class Summativegame extends JComponent implements KeyListener {
         // draw the cannon ball if the spacebar is pressed
         if (shoot) {
 
-            g.drawImage(cannonBall, ball.x, cannon.y, ball.width, ball.height, null);
+            g.drawImage(cannonBall, 6, cannon.y, 100, 76, null);
 
+        }
+        else{
+            if (reshoot){
+                g.drawImage(cannonBall, ball.x, cannon.y, ball.width, ball.height, null);
         }
         if(ball.x >=750){
             ball.x = 750;
+            shoot = false;
+            reshoot = true;
         }
 // draw in the target background
         g.drawImage(targetBackground, 757, 550,100, 550, null);
         
         // GAME DRAWING ENDS HERE
     }
-
+    }
     public BufferedImage loadImage(String filename) {
         BufferedImage img = null;
         try {
@@ -151,7 +159,18 @@ public class Summativegame extends JComponent implements KeyListener {
             if (shoot) {
                 ball.y = cannonYPosition;
                 ball.x = ball.x + ballSpeed;
+                 if (ball.x >=750){
+                shoot = false;
+                ball.x = 6;
+                ball.y = cannon.y;
             }
+            }
+           if (reshoot){
+               ball.y = cannonYPosition;
+                ball.x = ball.x + ballSpeed;
+           }
+            // allow the user to fire again after the cannon ball reachs the end
+            
 
             // GAME LOGIC ENDS HERE 
             // update the drawing (calls paintComponent)
@@ -216,7 +235,7 @@ public class Summativegame extends JComponent implements KeyListener {
         }
         if (key == KeyEvent.VK_SPACE) {
             shoot = true;
-            
+            reshoot = false;
         }
     }
 
