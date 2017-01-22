@@ -43,6 +43,12 @@ public class Summativegame extends JComponent implements KeyListener {
     BufferedImage targetBackground = loadImage("Brickwall.png");
     // import a picture for the moving target
     BufferedImage target = loadImage("Target.png");
+    // import a picture for the floor
+    BufferedImage marbleFloor = loadImage("Marblefloor.png");
+    // import an image indicate things are speeding up
+    BufferedImage speedUp = loadImage("SpeedUp.png");
+    // import an image of the blue background
+    BufferedImage wallpaper = loadImage("wallpaperBackground.png");
     // start off with the game not on
     boolean start = false;
     // create a shape for the rectangle to go in
@@ -69,7 +75,8 @@ public class Summativegame extends JComponent implements KeyListener {
     boolean hitTop = false;
     // create a boolean for when the target begins to move
     boolean targetStartMove = true;
-    
+    // create a boolean to see if things speed up
+    boolean speedIncrease = false;
     // create a base move speed for the target
     int targetSpeed = 2;
 
@@ -80,14 +87,21 @@ public class Summativegame extends JComponent implements KeyListener {
     public void paintComponent(Graphics g) {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
+        
+        // create a starting screen
+        
+        
+        
+        
+        
         // set a colour for the background
         g.setColor(gold);
         // draw the background of the game and leave a gap for the floor
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.drawImage(wallpaper, 0, 0, 780, 562, null);
         // set a colour for the floor
         g.setColor(Color.BLUE);
         // draw the floor
-        g.fillRect(0, 563, WIDTH, 38);
+        g.drawImage(marbleFloor, 0, 563, WIDTH, 38, null);
         // set the colour of the cannon'
         g.setColor(Color.red);
         // create a cannon barrel
@@ -111,7 +125,7 @@ public class Summativegame extends JComponent implements KeyListener {
                 
                 g.drawImage(cannonBall, ball.x, cannon.y-5, ball.width, ball.height, null);
             }
-
+            // make sure the ball doesn't go past the wall
             if (ball.x >= 750) {
                 ball.x = 750;
             }
@@ -121,6 +135,10 @@ public class Summativegame extends JComponent implements KeyListener {
                 // make shoot be false so the user can reshoot
                 shoot = false;
             }
+            // if the player hits the target
+            //if(speedIncrease&&ball.x<500){
+              //  g.drawImage(speedUp, 100, 200, 100, 100, null);
+            //}
 
             // GAME DRAWING ENDS HERE
         }
@@ -229,9 +247,11 @@ public class Summativegame extends JComponent implements KeyListener {
                 
                 // get hit detection between the cannonball and the moving target working
                 if(ball.x+ball.width >= Target.x && ball.y+ball.height> Target.y && ball.y + ball.height<Target.y +Target.height){
-                    targetSpeed = targetSpeed+1;
-                }
-                            
+                    // increase the target spped by 1 everytime the target is hit
+                    targetSpeed = targetSpeed +1;
+                    speedIncrease = true;
+                }                
+                
                 
                 
                
@@ -293,8 +313,11 @@ public class Summativegame extends JComponent implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
+        // if down is pressed
         if (key == KeyEvent.VK_DOWN) {
+            // start the game
             start = true;
+            // allow the user to move down
             moveDown = true;
             // if the user is shooting
             if (shoot) {
@@ -302,6 +325,7 @@ public class Summativegame extends JComponent implements KeyListener {
                 moveDown = false;
             }
         }
+        // if up is pressed
         if (key == KeyEvent.VK_UP) {
             moveUp = true;
             start = true;
@@ -312,6 +336,7 @@ public class Summativegame extends JComponent implements KeyListener {
 
             }
         }
+        // if spacebar is pressed
         if (key == KeyEvent.VK_SPACE) {
             shoot = true;
 
