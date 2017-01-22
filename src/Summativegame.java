@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -85,6 +84,7 @@ public class Summativegame extends JComponent implements KeyListener {
     boolean life1 = false;
     boolean life2 = false;
     boolean life3 = false;
+    // set a variable for the t
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -124,6 +124,8 @@ public class Summativegame extends JComponent implements KeyListener {
         // if the game is started
         if (start) {
             
+            // have a running timer at the top
+            g.setFont(null);
             // draw the target in
             g.drawImage(target, Target.x, Target.y, Target.width, Target.height, null);
             // draw the cannon ball if the spacebar is pressed
@@ -278,13 +280,18 @@ public class Summativegame extends JComponent implements KeyListener {
                             life1 = true;
                             
                         }
+                    
                         if(lives[1] ==1) {
                             life2 = true;
                             
+                        }else{
+                            life2 = false;
                         }
                         if(lives[2] ==1) {
                             life3 = true;
                             
+                        }else{
+                            life3 = false;
                         }
                         
                         
