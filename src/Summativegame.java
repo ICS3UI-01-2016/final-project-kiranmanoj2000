@@ -40,30 +40,42 @@ public class Summativegame extends JComponent implements KeyListener {
     // import a picture for the cannon ball
     BufferedImage cannonBall = loadImage("Cannonball.png");
     // import a picture for the wall'
-    BufferedImage targetBackground = loadImage("targetBackground.png");
+    BufferedImage targetBackground = loadImage("Brickwall.png");
+    // import a picture for the moving target
+    BufferedImage target = loadImage("Target.png");
+    // start off with the game not on
     boolean start = false;
+    // create a shape for the rectangle to go in
     Rectangle cannon = new Rectangle(6, 542, 100, 76);
     // set a variable to say the distance from y
     int distanceY = 0;
+    // movment speed
     int moveSpeed = 10;
     // create a boolean for the shooting of the cannon
     boolean shoot = false;
     // add a colour for the background
     Color gold = new Color(242, 242, 12);
-    // make a elipse for thbae cannonball
+    // make a rectangle for the cannon ball to be in
     Rectangle ball = new Rectangle(107, cannon.y - 3, 30, 30);
     // set ball speed
     int ballSpeed = 10;
     // set a variable for the cannon y position
     int cannonYPosition = cannon.y;
-    //
-    boolean reshoot = false;
+    // create a rectangle for the moving target to be in
+    Rectangle Target = new Rectangle(740, 200, 80, 120);
+    // create boolean to see if target hits bottom 
+    boolean hitBottom = false;
+    // create a boolean to see if target hits top
+    boolean hitTop = false;
+    // create a boolean for when the target begins to move
+    boolean targetStartMove = true;
     
+    // create a base move speed for the target
+    int targetSpeed = 2;
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
     // NOTE: This is already double buffered!(helps with framerate/speed)
-
     @Override
     public void paintComponent(Graphics g) {
         // always clear the screen first!
@@ -85,29 +97,35 @@ public class Summativegame extends JComponent implements KeyListener {
 
         // draw in the cannon
         g.drawImage(cannonimg, cannon.x, cannon.y, cannon.width, cannon.height, null);
-        
-        
-        // draw the cannon ball if the spacebar is pressed
-        if (shoot) {
 
-            g.drawImage(cannonBall, 6, cannon.y, 100, 76, null);
+        // draw in the target background
+        g.drawImage(targetBackground, 740, 0, 80, 563, null);
 
+        // if the game is started
+        if (start) {
+            
+            // draw the target in
+            g.drawImage(target, Target.x, Target.y, Target.width, Target.height, null);
+            // draw the cannon ball if the spacebar is pressed
+            if (shoot) {
+                
+                g.drawImage(cannonBall, ball.x, cannon.y-5, ball.width, ball.height, null);
+            }
+
+            if (ball.x >= 750) {
+                ball.x = 750;
+            }
+            // if the ball reaches the end of the xcreen make it dissapear
+            if (ball.x >= 710) {
+                ball.x = 100;
+                // make shoot be false so the user can reshoot
+                shoot = false;
+            }
+
+            // GAME DRAWING ENDS HERE
         }
-        else{
-            if (reshoot){
-                g.drawImage(cannonBall, ball.x, cannon.y, ball.width, ball.height, null);
-        }
-        if(ball.x >=750){
-            ball.x = 750;
-            shoot = false;
-            reshoot = true;
-        }
-// draw in the target background
-        g.drawImage(targetBackground, 757, 550,100, 550, null);
-        
-        // GAME DRAWING ENDS HERE
     }
-    }
+
     public BufferedImage loadImage(String filename) {
         BufferedImage img = null;
         try {
@@ -137,41 +155,86 @@ public class Summativegame extends JComponent implements KeyListener {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
+            // begin the game only if the arrows are moved
             if (start) {
+                // if the player is pressing the up arrow
                 if (moveUp) {
-
+                    // make them move up
                     cannon.y = cannon.y - moveSpeed;
 
                 }
-
+                // if they are pressing the down arrow 
                 if (moveDown) {
+                    // make them move down
                     cannon.y = cannon.y + moveSpeed;
                 }
+
+                // do not allow the players to move while their cannon is firing
+                if (shoot) {
+                    moveUp = false;
+                    moveDown = false;
+                }
                 // set barriers
+                // if the cannon passes these point in the y axis revert them to their original place
                 if (cannon.y > 532) {
                     cannon.y = 530;
                 }
                 if (cannon.y < 0) {
                     cannon.y = 4;
                 }
-            }
-            // make cannon ball move
-            if (shoot) {
-                ball.y = cannonYPosition;
-                ball.x = ball.x + ballSpeed;
-                 if (ball.x >=750){
-                shoot = false;
-                ball.x = 6;
-                ball.y = cannon.y;
-            }
-            }
-           if (reshoot){
-               ball.y = cannonYPosition;
-                ball.x = ball.x + ballSpeed;
-           }
-            // allow the user to fire again after the cannon ball reachs the end
-            
 
+          // if space is pressed
+                if (shoot){
+                    // make cannon ball move
+                    ball.y = cannon.y;
+                    ball.x = ball.x + ballSpeed;
+                }
+
+                // if the ball reaches the end of the screen allow the user to reshoot
+                if (ball.x >= 750) {
+
+                    shoot = false;
+                }
+                
+                // make the target on the wall move up and down
+                if(targetStartMove){
+                Target.y = Target.y + targetSpeed;
+                }
+                // if the target hits the floor 
+                if(Target.y >443){
+                    // set the boolean that makes the intial target movement to false so it stops moving down
+                    targetStartMove = false;
+                    // state it is true that the target hit the bottom
+                    hitBottom = true;
+                    // state that it is false the target hit the top of the screen
+                    hitTop = false;
+                }
+                // if it hits the bottom
+                if(hitBottom){
+                    // make it move up
+                    Target.y = Target.y - targetSpeed;
+                }
+                // if the target hits the top
+                if(Target.y <0){
+                    // state that it is true that it hit the top
+                    hitTop = true;
+                    // state that it iss false that it hit the bottom
+                    hitBottom = false;
+                }
+                // when it hits the top
+                if(hitTop){
+                    // make it move down
+                    Target.y = Target.y + targetSpeed;
+                }
+                
+                            
+                
+                
+               
+                
+                
+                
+            }
             // GAME LOGIC ENDS HERE 
             // update the drawing (calls paintComponent)
             repaint();
@@ -189,6 +252,7 @@ public class Summativegame extends JComponent implements KeyListener {
                 }
             } catch (Exception e) {
             };
+
         }
     }
 
@@ -228,14 +292,25 @@ public class Summativegame extends JComponent implements KeyListener {
         if (key == KeyEvent.VK_DOWN) {
             start = true;
             moveDown = true;
+            // if the user is shooting
+            if (shoot) {
+                // do not allow them to move down
+                moveDown = false;
+            }
         }
         if (key == KeyEvent.VK_UP) {
             moveUp = true;
             start = true;
+            // if the user is in the process of shooting
+            if (shoot) {
+                // do not allow them to move up
+                moveUp = false;
+
+            }
         }
         if (key == KeyEvent.VK_SPACE) {
             shoot = true;
-            reshoot = false;
+
         }
     }
 
@@ -248,7 +323,6 @@ public class Summativegame extends JComponent implements KeyListener {
         if (key == KeyEvent.VK_UP) {
             moveUp = false;
         }
-        
 
     }
 }
