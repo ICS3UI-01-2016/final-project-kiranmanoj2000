@@ -50,7 +50,7 @@ public class Summativegame extends JComponent implements KeyListener {
     // set a variable to say the distance from y
     int distanceY = 0;
     // movment speed
-    int moveSpeed = 10;
+    int moveSpeed = 8;
     // create a boolean for the shooting of the cannon
     boolean shoot = false;
     // add a colour for the background
@@ -58,11 +58,11 @@ public class Summativegame extends JComponent implements KeyListener {
     // make a rectangle for the cannon ball to be in
     Rectangle ball = new Rectangle(107, cannon.y - 3, 30, 30);
     // set ball speed
-    int ballSpeed = 10;
+    int ballSpeed = 8;
     // set a variable for the cannon y position
     int cannonYPosition = cannon.y;
     // create a rectangle for the moving target to be in
-    Rectangle Target = new Rectangle(740, 200, 80, 120);
+    Rectangle Target = new Rectangle(740, 200, 80, 70);
     // create boolean to see if target hits bottom 
     boolean hitBottom = false;
     // create a boolean to see if target hits top
@@ -201,7 +201,7 @@ public class Summativegame extends JComponent implements KeyListener {
                 Target.y = Target.y + targetSpeed;
                 }
                 // if the target hits the floor 
-                if(Target.y >443){
+                if(Target.y >493){
                     // set the boolean that makes the intial target movement to false so it stops moving down
                     targetStartMove = false;
                     // state it is true that the target hit the bottom
@@ -227,6 +227,10 @@ public class Summativegame extends JComponent implements KeyListener {
                     Target.y = Target.y + targetSpeed;
                 }
                 
+                // get hit detection between the cannonball and the moving target working
+                if(ball.x+ball.width >= Target.x && ball.y+ball.height> Target.y && ball.y + ball.height<Target.y +Target.height){
+                    targetSpeed = targetSpeed+1;
+                }
                             
                 
                 
