@@ -49,6 +49,8 @@ public class Summativegame extends JComponent implements KeyListener {
     BufferedImage speedUp = loadImage("SpeedUp.png");
     // import an image of the blue background
     BufferedImage wallpaper = loadImage("wallpaperBackground.png");
+    // impot an image if lives are lost
+    BufferedImage lifeLost = loadImage("redX.png");
     // start off with the game not on
     boolean start = false;
     // create a shape for the rectangle to go in
@@ -79,6 +81,10 @@ public class Summativegame extends JComponent implements KeyListener {
     boolean speedIncrease = false;
     // create a base move speed for the target
     int targetSpeed = 2;
+    // set up 3 lives for the player
+    boolean life1 = false;
+    boolean life2 = false;
+    boolean life3 = false;
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -134,6 +140,15 @@ public class Summativegame extends JComponent implements KeyListener {
                 ball.x = 100;
                 // make shoot be false so the user can reshoot
                 shoot = false;
+            }
+            if(life1){
+                g.drawImage(lifeLost, 500, 560, 18, 18, null);
+            }
+            if(life2){
+                g.drawImage(lifeLost, 530, 560, 18, 18, null);
+            }
+            if(life3){
+                g.drawImage(lifeLost, 560, 560, 18, 18, null);
             }
             // if the player hits the target
             //if(speedIncrease&&ball.x<500){
@@ -250,7 +265,34 @@ public class Summativegame extends JComponent implements KeyListener {
                     // increase the target spped by 1 everytime the target is hit
                     targetSpeed = targetSpeed +1;
                     speedIncrease = true;
-                }                
+                } 
+                    // create an array to store all the lives lost
+                    int[]lives = new int[3];
+                    for (int i = 0; i < 3; i++) {
+                      if(ball.x+ball.width >= Target.x && (ball.y+ball.height) -Target.y >= 250 || ball.x+ball.width >= Target.x &&((ball.y + ball.height)-Target.y)*-1>=200 ){
+                    lives[i] = 1;
+                }  else{
+                          lives[i]=2;
+                      }
+                        if(lives[0] ==1) {
+                            life1 = true;
+                            
+                        }
+                        if(lives[1] ==1) {
+                            life2 = true;
+                            
+                        }
+                        if(lives[2] ==1) {
+                            life3 = true;
+                            
+                        }
+                        
+                        
+                        
+                    }
+    
+                // if the ball does not hit the target by a certain amount
+                
                 
                 
                 
