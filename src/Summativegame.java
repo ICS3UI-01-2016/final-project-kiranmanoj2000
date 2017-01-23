@@ -89,7 +89,8 @@ public class Summativegame extends JComponent implements KeyListener {
     Font timer = new Font("Calibri", Font.BOLD,42);
     boolean timerStart = false;
     int time = 0;
-
+    // create a boolean to pause between levels
+    boolean levelPause = false;
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
     // NOTE: This is already double buffered!(helps with framerate/speed)
@@ -201,7 +202,7 @@ public class Summativegame extends JComponent implements KeyListener {
             // begin the game only if the arrows are moved
             if (start) {
                 // begin the timer
-                timerStart = false;
+                timerStart = true;
                 // if the player is pressing the up arrow
                 if (moveUp) {
                     // make them move up
@@ -278,6 +279,8 @@ public class Summativegame extends JComponent implements KeyListener {
                     targetSpeed = targetSpeed +2;
                     
                     speedIncrease = true;
+                    // stop the timer
+                    timerStart = false;
                 } 
                     // create an array to store all the lives lost
                     int[]lives = new int[3];
