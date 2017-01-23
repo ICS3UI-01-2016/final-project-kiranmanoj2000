@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -84,7 +85,10 @@ public class Summativegame extends JComponent implements KeyListener {
     boolean life1 = false;
     boolean life2 = false;
     boolean life3 = false;
-    // set a variable for the t
+    // set a variable for the the font
+    Font timer = new Font("Calibri", Font.BOLD,42);
+    boolean timerStart = false;
+    int time = 0;
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -152,6 +156,10 @@ public class Summativegame extends JComponent implements KeyListener {
             if(life3){
                 g.drawImage(lifeLost, 560, 560, 18, 18, null);
             }
+            
+            
+            // set the font for the countdown timer
+            g.setFont(timer);
             // if the player hits the target
             //if(speedIncrease&&ball.x<500){
               //  g.drawImage(speedUp, 100, 200, 100, 100, null);
@@ -192,6 +200,8 @@ public class Summativegame extends JComponent implements KeyListener {
             // GAME LOGIC STARTS HERE 
             // begin the game only if the arrows are moved
             if (start) {
+                // begin the timer
+                timerStart = false;
                 // if the player is pressing the up arrow
                 if (moveUp) {
                     // make them move up
@@ -263,9 +273,10 @@ public class Summativegame extends JComponent implements KeyListener {
                 }
                 
                 // get hit detection between the cannonball and the moving target working
-                if(ball.x+ball.width >= Target.x && ball.y+ball.height> Target.y && ball.y + ball.height<Target.y +Target.height){
+                if(ball.x+ball.width >= Target.x && ball.y>= Target.y && ball.y + ball.height<=Target.y +Target.height){
                     // increase the target spped by 1 everytime the target is hit
                     targetSpeed = targetSpeed +2;
+                    
                     speedIncrease = true;
                 } 
                     // create an array to store all the lives lost
