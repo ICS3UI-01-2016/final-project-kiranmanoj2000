@@ -265,7 +265,7 @@ public class Summativegame extends JComponent implements KeyListener {
                 // get hit detection between the cannonball and the moving target working
                 if(ball.x+ball.width >= Target.x && ball.y+ball.height> Target.y && ball.y + ball.height<Target.y +Target.height){
                     // increase the target spped by 1 everytime the target is hit
-                    targetSpeed = targetSpeed +1;
+                    targetSpeed = targetSpeed +2;
                     speedIncrease = true;
                 } 
                     // create an array to store all the lives lost
