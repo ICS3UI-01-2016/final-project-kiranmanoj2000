@@ -283,34 +283,22 @@ public class Summativegame extends JComponent implements KeyListener {
                     timerStart = false;
                 } 
                     // create an array to store all the lives lost
-                    int[]lives = new int[3];
-                    for (int i = 0; i < 3; i++) {
-                      if(ball.x+ball.width >= Target.x && (ball.y+ball.height) -Target.y >= 250 || ball.x+ball.width >= Target.x &&((ball.y + ball.height)-Target.y)*-1>=200 ){
-                    lives[i] = 1;
-                }  else{
-                          lives[i]=2;
-                      }
-                        if(lives[0] ==1) {
-                            life1 = true;
-                            
-                        }
                     
-                        if(lives[1] ==1) {
-                            life2 = true;
-                            
-                        }else{
-                            life2 = false;
-                        }
-                        if(lives[2] ==1) {
-                            life3 = true;
-                            
-                        }else{
-                            life3 = false;
-                        }
+                    
+                      if(ball.x+ball.width >= Target.x && (ball.y+ball.height) -Target.y >= 100 || ball.x+ball.width >= Target.x &&((ball.y + ball.height)-Target.y)*-1>=100 ){
+                      life1 = true;
+                      
+                      }
+                      if(ball.x+ball.width >= Target.x && (ball.y+ball.height) -Target.y >= 251 || ball.x+ball.width >= Target.x &&((ball.y + ball.height)-Target.y)*-1>=201 ){
+                      life2 = true;
+                      }
+                      if(ball.x+ball.width >= Target.x && (ball.y+ball.height) -Target.y >= 252 || ball.x+ball.width >= Target.x &&((ball.y + ball.height)-Target.y)*-1>=202 ){
+                      life3 = true;
+                      }
                         
                         
                         
-                    }
+                    
     
                 // if the ball does not hit the target by a certain amount
                 
