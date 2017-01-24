@@ -1,3 +1,4 @@
+import jaco.mp3.player.MP3Player;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,6 +18,8 @@ import javax.swing.JFrame;
  */
 public class Summativegame extends JComponent implements KeyListener {
 
+    MP3Player music = new MP3Player(new File("music.mp3"));
+    
     // Height and Width of our game
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
@@ -266,6 +269,8 @@ public class Summativegame extends JComponent implements KeyListener {
         long startTime;
         long deltaTime;
 
+        music.play();
+        
         // the main game loop section
         // game will end if you set done = false;
         boolean done = false;
@@ -379,7 +384,7 @@ public class Summativegame extends JComponent implements KeyListener {
                             level = level + 1;
                         }
                 // if they stay in one spot for 7 seconds end the game
-
+                        
                 // see if a life is lost
                         //if (ball.x + ball.width >= Target.x && (ball.y + ball.height) - Target.y >= 250 || ball.x + ball.width >= Target.x && ((ball.y + ball.height) - Target.y) * -1 >= 200) {
                 // if the ball does not hit the target by a certain amount
