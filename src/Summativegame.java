@@ -229,6 +229,7 @@ public class Summativegame extends JComponent implements KeyListener {
                     //  g.drawImage(speedUp, 100, 200, 100, 100, null);
                     //}
                 }
+            
             } else {
                 // set a black bacground ASK MR LAMONT
                 g.setColor(Color.BLUE);
