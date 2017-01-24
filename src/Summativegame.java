@@ -17,9 +17,10 @@ import javax.swing.JFrame;
  * @author manok5757
  */
 public class Summativegame extends JComponent implements KeyListener {
-
-    MP3Player music = new MP3Player(new File("music.mp3"));
-    
+// load in the cannon firing sound
+    MP3Player cannonFire = new MP3Player(new File("Cannonball SOUND Effect.mp3"));
+    // load in a sound if a shot hits the target
+    MP3Player targetHit = new MP3Player(new File("PINGSNOISE sound effects from SFX WORLD HQ 18.mp3"));
     // Height and Width of our game
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
@@ -115,6 +116,8 @@ public class Summativegame extends JComponent implements KeyListener {
     boolean beginScreen = true;
     // create a font foe the instructions
     Font instructions = new Font("Calibiri", Font.BOLD, 35);
+    // create a boolean for the cannon sounds
+    boolean shotSound = false;
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -231,6 +234,7 @@ public class Summativegame extends JComponent implements KeyListener {
                 }
             
             } else {
+                
                 // set a black bacground ASK MR LAMONT
                 g.setColor(Color.BLUE);
                 // draw in the background
@@ -270,7 +274,7 @@ public class Summativegame extends JComponent implements KeyListener {
         long startTime;
         long deltaTime;
 
-        music.play();
+        
         
         // the main game loop section
         // game will end if you set done = false;
@@ -337,6 +341,11 @@ public class Summativegame extends JComponent implements KeyListener {
 
                             shoot = false;
                         }
+                        // play the sound once the ball passes a certain distance
+                        if(ball.x == 108){
+                            // play the sound
+                            cannonFire.play();
+                        }
 
                         // make the target on the wall move up and down
                         if (targetStartMove) {
@@ -371,6 +380,8 @@ public class Summativegame extends JComponent implements KeyListener {
 
                         // get hit detection between the cannonball and the moving target working
                         if (ball.x + ball.width >= Target.x && ball.y >= Target.y && ball.y + ball.height <= Target.y + Target.height + 30) {
+                            // add a sound effect
+                            targetHit.play();
                             // increase the target spped by 1 everytime the target is hit
                             targetSpeed = targetSpeed + 1;
 
@@ -474,6 +485,7 @@ public class Summativegame extends JComponent implements KeyListener {
         // if spacebar is pressed
         if (key == KeyEvent.VK_SPACE) {
             shoot = true;
+            
 
         }
         // if the enter key is pressed
