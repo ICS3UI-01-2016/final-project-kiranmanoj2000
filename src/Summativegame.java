@@ -490,9 +490,11 @@ public class Summativegame extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_DOWN) {
+            // if they let go of the down, dont let them move down
             moveDown = false;
         }
         if (key == KeyEvent.VK_UP) {
+            // if they let go of the up, dont let them move up
             moveUp = false;
         }
 
