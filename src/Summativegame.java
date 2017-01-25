@@ -151,7 +151,7 @@ public class Summativegame extends JComponent implements KeyListener {
                 g.drawImage(marbleFloor, 0, 563, WIDTH, 38, null);
                 // set the colour of the cannon'
                 g.setColor(Color.red);
-        // create a cannon barrel
+                // create a cannon barrel
 
                 // set the colour of the wheel of the cannon
                 g.setColor(Color.GREEN);
