@@ -1,3 +1,4 @@
+
 import jaco.mp3.player.MP3Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +18,8 @@ import javax.swing.JFrame;
  * @author manok5757
  */
 public class Summativegame extends JComponent implements KeyListener {
-// load in the cannon firing sound
+
+    // load in the cannon firing sound
     MP3Player cannonFire = new MP3Player(new File("Cannonball SOUND Effect.mp3"));
     // load in a sound if a shot hits the target
     MP3Player targetHit = new MP3Player(new File("PINGSNOISE sound effects from SFX WORLD HQ 18.mp3"));
@@ -62,6 +64,8 @@ public class Summativegame extends JComponent implements KeyListener {
     BufferedImage upDown = loadImage("upDownGood.png");
     // import a picture for the spacebar
     BufferedImage spacebar = loadImage("space.png");
+    // import a picture for the background
+    BufferedImage title = loadImage("Drawing.png");
     // start off with the game not on
     boolean start = false;
     // create a shape for the rectangle to go in
@@ -92,10 +96,6 @@ public class Summativegame extends JComponent implements KeyListener {
     boolean speedIncrease = false;
     // create a base move speed for the target
     int targetSpeed = 2;
-    // set up 3 lives for the player
-    //boolean life1 = false;
-    //boolean life2 = false;
-    //boolean life3 = false;
     // set a variable for the the font
     Font timer = new Font("Calibri", Font.BOLD, 42);
     boolean timerStart = false;
@@ -116,8 +116,6 @@ public class Summativegame extends JComponent implements KeyListener {
     boolean beginScreen = true;
     // create a font foe the instructions
     Font instructions = new Font("Calibiri", Font.BOLD, 35);
-    // create a boolean for the cannon sounds
-    boolean shotSound = false;
 
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
@@ -128,21 +126,21 @@ public class Summativegame extends JComponent implements KeyListener {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         if (beginScreen) {
-        // create a starting screen
+            // create a starting screen
             g.drawImage(startScreen, 0, 0, 800, 600, null);
             // draw in the start button
             g.drawImage(startButton, 47, 500, 400, 80, null);
             // draw in the title of the game (CANNON RUSH)
-            
+            g.drawImage(title, 150, 10, 600, 200, null);
             // dont let the players move
             moveDown = false;
             moveUp = false;
             start = false;
         }
-        
+
         if (!beginScreen) {
 
-        // set a colour for the background
+            // set a colour for the background
             if (gameFresh) {
                 g.setColor(gold);
                 // draw the background of the game and leave a gap for the floor
@@ -164,23 +162,22 @@ public class Summativegame extends JComponent implements KeyListener {
                 // draw in the target background
                 g.drawImage(targetBackground, 740, 0, 80, 563, null);
 
-        
                 // if the game is started
                 // draw in the onscreen controls after the start screen is passed
-        if(!beginScreen &&!start){
-            // draw in the space bar
-            g.drawImage(spacebar, 44, 140, 400, 70, null);
-            // draw in the up down
-            g.drawImage(upDown, 32, 55, 100, 70, null);
-            // set the colour to green
-            g.setColor(Color.GREEN);
-            // set the font for the written instructions
-            g.setFont(instructions);
-            // draw in the instructions beside the up and down
-            g.drawString(" = Start Game & Move Up and Down", 140, 100);
-            // draw in the instructions beside the spacebar
-            g.drawString(" = Shoot", 454, 192);
-        }
+                if (!beginScreen && !start) {
+                    // draw in the space bar
+                    g.drawImage(spacebar, 44, 140, 400, 70, null);
+                    // draw in the up down
+                    g.drawImage(upDown, 32, 55, 100, 70, null);
+                    // set the colour to green
+                    g.setColor(Color.GREEN);
+                    // set the font for the written instructions
+                    g.setFont(instructions);
+                    // draw in the instructions beside the up and down
+                    g.drawString(" = Start Game & Move Up and Down", 140, 100);
+                    // draw in the instructions beside the spacebar
+                    g.drawString(" = Shoot", 454, 192);
+                }
                 if (start) {
 
                     // set the font for the countdown timer
@@ -204,7 +201,7 @@ public class Summativegame extends JComponent implements KeyListener {
                     g.drawImage(target, Target.x, Target.y, Target.width, Target.height, null);
                     // draw the cannon ball if the spacebar is pressed
                     if (shoot) {
-
+                        // draw the cannon in
                         g.drawImage(cannonBall, ball.x, cannon.y - 5, ball.width, ball.height, null);
                     }
                     // make sure the ball doesn't go past the wall
@@ -218,23 +215,10 @@ public class Summativegame extends JComponent implements KeyListener {
                         shoot = false;
                     }
 
-            //if (life1) {
-                    // g.drawImage(lifeLost, 500, 560, 18, 18, null);
-                    //}
-                    //if (life2) {
-                    //   g.drawImage(lifeLost, 530, 560, 18, 18, null);
-                    ///}
-                    //if (life3) {
-                    //   g.drawImage(lifeLost, 560, 560, 18, 18, null);
-                    //}
-            // if the player hits the target
-                    //if(speedIncrease&&ball.x<500){
-                    //  g.drawImage(speedUp, 100, 200, 100, 100, null);
-                    //}
                 }
-            
+
             } else {
-                
+
                 // set a black bacground ASK MR LAMONT
                 g.setColor(Color.BLUE);
                 // draw in the background
@@ -274,8 +258,6 @@ public class Summativegame extends JComponent implements KeyListener {
         long startTime;
         long deltaTime;
 
-        
-        
         // the main game loop section
         // game will end if you set done = false;
         boolean done = false;
@@ -320,7 +302,7 @@ public class Summativegame extends JComponent implements KeyListener {
                             moveUp = false;
                             moveDown = false;
                         }
-                // set barriers
+                        // set barriers
                         // if the cannon passes these point in the y axis revert them to their original place
                         if (cannon.y > 532) {
                             cannon.y = 530;
@@ -331,20 +313,21 @@ public class Summativegame extends JComponent implements KeyListener {
 
                         // if space is pressed
                         if (shoot) {
+
                             // make cannon ball move
                             ball.y = cannon.y;
                             ball.x = ball.x + ballSpeed;
+                        }
+                        // play the sound once the ball passes a certain distance
+                        if (ball.x == 108) {
+                            // play the sound
+                            cannonFire.play();
                         }
 
                         // if the ball reaches the end of the screen allow the user to reshoot
                         if (ball.x >= 750) {
 
                             shoot = false;
-                        }
-                        // play the sound once the ball passes a certain distance
-                        if(ball.x == 108){
-                            // play the sound
-                            cannonFire.play();
                         }
 
                         // make the target on the wall move up and down
@@ -395,11 +378,7 @@ public class Summativegame extends JComponent implements KeyListener {
                             // move the level up by 1
                             level = level + 1;
                         }
-                // if they stay in one spot for 7 seconds end the game
-                        
-                // see if a life is lost
-                        //if (ball.x + ball.width >= Target.x && (ball.y + ball.height) - Target.y >= 250 || ball.x + ball.width >= Target.x && ((ball.y + ball.height) - Target.y) * -1 >= 200) {
-                // if the ball does not hit the target by a certain amount
+
                     }
                 }
 
@@ -485,7 +464,6 @@ public class Summativegame extends JComponent implements KeyListener {
         // if spacebar is pressed
         if (key == KeyEvent.VK_SPACE) {
             shoot = true;
-            
 
         }
         // if the enter key is pressed
