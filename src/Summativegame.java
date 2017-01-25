@@ -109,12 +109,12 @@ public class Summativegame extends JComponent implements KeyListener {
     // keep track of the score
     int score = 0;
     // set a font for the final score display
-    Font scoreFinal = new Font("Rockwell Extra Bold", Font.BOLD, 31);
+    Font scoreFinal = new Font("Rockwell Extra Bold", Font.BOLD, 27);
     // create an int to track level number
     int level = 1;
     // create a boolean for the start screen
     boolean beginScreen = true;
-    // create a font foe the instructions
+    // create a font for the instructions
     Font instructions = new Font("Calibiri", Font.BOLD, 35);
 
     // drawing of the game happens in here
@@ -229,7 +229,7 @@ public class Summativegame extends JComponent implements KeyListener {
                 g.drawImage(gameOver, gameDone.x, gameDone.y, gameDone.width, gameDone.height, null);
                 // draw in the users final score
                 g.setFont(scoreFinal);
-                g.drawString("You Reached Level " + level + " With a Score of " + score, 8, 400);
+                g.drawString("You Reached Level " + level + " With a Score of " + score, 26, 400);
 
             }
 
